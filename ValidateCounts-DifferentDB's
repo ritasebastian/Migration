@@ -1,1 +1,52 @@
 https://aws.amazon.com/blogs/database/validate-database-objects-post-migration-from-microsoft-sql-server-to-amazon-rds-for-postgresql-and-amazon-aurora-postgresql/
+
+sudo dnf install git -y
+sudo dnf install pip -y
+git clone https://github.com/aws-samples/multi-database-schema-validator.git
+cd multi-database-schema-validator
+Edit ini file
+vi conf/configurations.ini
+# Static default configurations for database. These can be overwritten by setting environment variables
+
+[source]
+SOURCE_DATABASE_TYPE = postgres
+SOURCE_SECRET_ID = db1
+
+[target]
+TARGET_DATABASE_TYPE = postgres
+TARGET_SECRET_ID = db2
+
+[region]
+SECRET_REGION = us-east-1
+
+[file-format]
+FILE_FORMAT = html
+
+[logging]
+DEBUG_LEVEL = INFO
+
+Edit secrets in AWS SecreteManager with plain text & create aws policy to read these valuues, create a role using this policy, associate the IAM role to run the ec2 server
+ {
+    "username": "postgres",
+    "password": "postgres",
+    "host": "54.235.12.0",
+    "port": "5432",
+    "database_name": "imdb"
+}
+
+ {
+    "username": "postgres",
+    "password": "postgres",
+    "host": "rdsdb.ctsgyquimc98.us-east-1.rds.amazonaws.com",
+    "port": "5432",
+    "database_name": "imdb"
+}
+
+Edit 
+vi database/database_queries.py [bug on code fix for MYSQL and ORACLE Section ]
+VIEW section "as view_name"
+python3 --version
+sudo dnf install pip -y
+python3 -m pip install -r requirements3.10.txt
+aws secretsmanager get-secret-value --secret-id db1
+python3 src/main.py
